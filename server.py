@@ -285,4 +285,5 @@ if __name__ == '__main__':
 			f=open(filename,"w")
 			f.write(asciinema_data_hdr+asciinema_data)
 			f.close()
+			ok("asciinema session saved : %s" % (filename))
 
