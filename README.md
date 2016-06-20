@@ -8,3 +8,9 @@
 
 ## replay session with asciinema
 ![ssh-server](http://0x1.fr/ssh-relay/asciinema.png)]
+
+## todos
+
+- multithreading
+- handle cmd pass in argument
+- cleanup the code
