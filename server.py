@@ -50,7 +50,7 @@ class Server (paramiko.ServerInterface):
     good_pub_key = paramiko.RSAKey(data=decodebytes(data))
 
     def __init__(self):
-        self.cmd = ""
+        self.command = ""
         self.username = ""
         self.password = ""
         self.term = "xterm-256color"
